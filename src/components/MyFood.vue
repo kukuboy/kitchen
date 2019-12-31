@@ -6,7 +6,7 @@
 
 <template>
   <div id="MyFood">
-    <div class="food" v-for="(item, index) in data" :key=index>
+    <div class="food" @click="clickP(item)" v-for="(item, index) in data" :key=index>
       <img class="img" :src="imgSrc">
       <div class="text">{{item.name}}</div>
     </div>
@@ -26,7 +26,11 @@ export default {
   },
   mounted () {
   },
-  methods: {}
+  methods: {
+    clickP (item) {
+      console.log('你点了' + item.name)
+    }
+  }
 }
 </script>
 

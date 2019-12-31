@@ -19,6 +19,11 @@ export default new Router({
           path: '/kitchen',
           name: 'kitchen',
           component: () => import('@/pages/views/kitchen.vue')
+        },
+        {
+          path: '/mine',
+          name: 'mine',
+          component: () => import('@/pages/views/mine.vue')
         }
       ]
     }
