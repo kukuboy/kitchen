@@ -1,0 +1,49 @@
+/**
+* @author 水印红枫
+* @date 2019/12/31
+* @Description:
+*/
+
+<template>
+  <div id="home">
+    <router-view></router-view>
+    <v-tab :data="tab_data"></v-tab>
+  </div>
+</template>
+
+<script>
+import MyTab from '../components/MyTab'
+
+export default {
+  name: 'home',
+  components: {
+    'v-tab': MyTab
+  },
+  data () {
+    return {
+      tab_data: [
+        {
+          name: '菜单',
+          path: 'kitchen'
+        }, {
+          name: '发现',
+          path: 'more'
+        }, {
+          name: '我的',
+          path: 'mine'
+        }
+      ]
+    }
+  }
+}
+</script>
+
+<style scoped>
+  #home {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+  }
+</style>
