@@ -8,6 +8,7 @@ const nodeMailer = require('nodemailer')
 const transporter = nodeMailer.createTranspoter({
   host: 'smtp.qq.com', // 邮箱服务的主机，如smtp.qq.com
   port: '465', // 对应的端口号
+  secureConnection: true, // 使用了 SSL
   // 开启安全连接
   secure: true,
   // secureConnection:false,
