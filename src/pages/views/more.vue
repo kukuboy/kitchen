@@ -14,7 +14,8 @@
     <img class="img" :src="imgSrc" @click="clickI">
     <input style="display: none" ref="imgInput" @change="addImg" type="file" accept="image/*" id="upload"
            name="upload">
-    <input v-model="name">
+    <input class="input" placeholder="请输入食物名称" v-model="name">
+    <button class="button" @click="addFood">添加食物</button>
   </div>
 </template>
 
@@ -24,7 +25,8 @@ export default {
   data () {
     return {
       imgSrc: require('@/common/image/青椒鸡蛋.jpg'),
-      name: ''
+      name: '',
+      img: ''
     }
   },
   mounted () {
@@ -40,15 +42,18 @@ export default {
       reader.readAsDataURL(imgInput.files[0])
       let _this = this
       reader.onload = function (e) {
-        _this.addFood(this.result)
+        _this.img = this.result
       }
     },
-    addFood (data) {
+    addFood () {
+      if (this.name === '') {
+        return
+      }
       this.$http.addFood({
         name: this.name,
-        img: data
+        img: this.img
       }).then((res) => {
-        console.log(res)
+        alert(res.msg)
       })
     }
   }
@@ -57,11 +62,35 @@ export default {
 
 <style scoped>
   #more {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 3rem;
+    right: 0;
+    padding: 1rem
   }
 
   #more .img {
-    width: 21rem;
-    margin-left: 2rem;
+    width: 23rem;
     height: 10rem;
+  }
+  #more .input{
+    width: 21rem;
+      margin: 1rem;
+    text-align: center;
+    border-radius: 4px;
+    height: 3rem;
+    line-height: 3rem;
+    border: 0;
+    outline: 0;
+  }
+  #more .button{
+    width: 21rem;
+    margin-left: 1rem;
+    text-align: center;
+    border-radius: 4px;
+    background-color: red;
+    height: 3rem;
+    line-height: 3rem;
   }
 </style>

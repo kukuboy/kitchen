@@ -1,13 +1,27 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  mounted () {
+    this.init()
+  },
+  destroyed () {
+    window.removeEventListener('unload', this.saveState)// 解决刷新后vux内容丢失问题
+  },
+  methods: {
+    init () {
+      document.documentElement.style.fontSize = document.documentElement.clientWidth / 25 + 'px'
+      window.addEventListener('unload', this.saveState)// 解决刷新后vux内容丢失问题
+    },
+    saveState () {
+
+    }
+  }
 }
 </script>
 
