@@ -51,11 +51,11 @@ export default {
     })
   },
   // 查询置顶消息
-  findTopMsg (params) {
+  getFood (params) {
     return httpA({
-      url: '/advisor/talk/findTopMsg',
+      url: '/getFood',
       params: params,
-      method: 'POST'
+      method: 'GET'
     })
   }
 }

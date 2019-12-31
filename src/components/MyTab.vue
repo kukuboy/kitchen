@@ -55,5 +55,6 @@ export default {
     display: inline-block;
     color: #333333;
     text-align: center;
+    line-height: 3rem;
   }
 </style>

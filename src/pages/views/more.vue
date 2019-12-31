@@ -14,7 +14,8 @@
     <img class="img" :src="imgSrc" @click="clickI">
     <input style="display: none" ref="imgInput" @change="addImg" type="file" accept="image/*" id="upload"
            name="upload">
-    <input class="input" placeholder="请输入食物名称" v-model="name">
+    <input class="input" @focus="focus" placeholder="请输入食物名称" v-model="name">
+    <p class="p" v-show="pShow">请输入食物名称</p>
     <button class="button" @click="addFood">添加食物</button>
   </div>
 </template>
@@ -26,7 +27,8 @@ export default {
     return {
       imgSrc: require('@/common/image/青椒鸡蛋.jpg'),
       name: '',
-      img: ''
+      img: '',
+      pShow: false
     }
   },
   mounted () {
@@ -35,6 +37,9 @@ export default {
     clickI () {
       let imgInput = this.$refs.imgInput
       imgInput.click()
+    },
+    focus () {
+      this.pShow = false
     },
     addImg () {
       let imgInput = this.$refs.imgInput
@@ -47,6 +52,7 @@ export default {
     },
     addFood () {
       if (this.name === '') {
+        this.pShow = true
         return
       }
       this.$http.addFood({
@@ -92,5 +98,11 @@ export default {
     background-color: red;
     height: 3rem;
     line-height: 3rem;
+  }
+  #more .p{
+    color: red;
+    width: 23rem;
+    text-align: center;
+    margin: 0 auto;
   }
 </style>

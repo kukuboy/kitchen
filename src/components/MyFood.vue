@@ -1,0 +1,65 @@
+/**
+* @author 水印红枫
+* @date 2019/12/31 16:44
+* @Description:
+*/
+
+<template>
+  <div id="MyFood">
+    <div class="food" v-for="(item, index) in data" :key=index>
+      <img class="img" :src="imgSrc">
+      <div class="text">{{item.name}}</div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'MyFood',
+  data () {
+    return {
+      imgSrc: require('@/common/image/青椒鸡蛋.jpg')
+    }
+  },
+  props: {
+    data: Array
+  },
+  mounted () {
+  },
+  methods: {}
+}
+</script>
+
+<style scoped>
+  #MyFood {
+    position: relative;
+    padding: 0 2.5rem;
+  }
+
+  #MyFood .food {
+    position: relative;
+    width: 20rem;
+    height: 10rem;
+    margin: 1rem 0;
+  }
+
+  #MyFood .food .img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20rem;
+    height: 10rem;
+  }
+
+  #MyFood .food .text {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 20rem;
+    height: 3rem;
+    color: #FFFFFF;
+    line-height: 3rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+</style>
