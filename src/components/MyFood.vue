@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import nodemailer from '../common/js/nodemailer'
+// import nodemailer from '../common/js/nodemailer'
 
 export default {
   name: 'MyFood',
@@ -31,15 +31,15 @@ export default {
   methods: {
     clickP (item) {
       console.log('你点了' + item.name)
-      let mailOptions = {
-        from: '"laogon"', // sender address
-        to: '2294211995@qq.com', // list of receivers
-        subject: 'Hello', // Subject line
-        // 发送text或者html格式
-        // text: 'Hello world?', // plain text body
-        html: '<h1>' + item.name + 'Hello world</h1>' // html body
-      }
-      nodemailer.sentMail(mailOptions)
+      // let mailOptions = {
+      //   from: '"laogon"', // sender address
+      //   to: '2294211995@qq.com', // list of receivers
+      //   subject: 'Hello', // Subject line
+      //   // 发送text或者html格式npm
+      //   // text: 'Hello world?', // plain text body
+      //   html: '<h1>' + item.name + 'Hello world</h1>' // html body
+      // }
+      // nodemailer.sentMail(mailOptions)
     }
   }
 }
