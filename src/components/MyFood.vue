@@ -50,8 +50,16 @@ export default {
       }).then((res) => {
         if (res.flag === 1) {
           console.log('成功')
+          this.$Dialog.Dialog({
+            text: '点菜成功',
+            type: 'quit'
+          })
         } else {
           console.log('失败')
+          this.$Dialog.Dialog({
+            text: '点菜失败',
+            type: 'quit'
+          })
         }
       })
     }

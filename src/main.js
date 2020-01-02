@@ -4,9 +4,11 @@ import Vue from 'vue'
 import Home from './pages/home'
 import router from './router'
 import ax from '@/api/api'
+import Dialog from '@/common/util/dialog/dialog'
 
 Vue.config.productionTip = false
 Vue.use(ax)
+Vue.use(Dialog)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
