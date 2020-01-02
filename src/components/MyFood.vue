@@ -76,7 +76,7 @@ export default {
   #MyFood .food {
     position: relative;
     width: 20rem;
-    height: 10rem;
+    height: 13rem;
     margin: 1rem 0;
   }
 
@@ -94,9 +94,10 @@ export default {
     bottom: 0;
     width: 20rem;
     height: 3rem;
-    color: #FFFFFF;
+    color: #333333;
     line-height: 3rem;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #FFFFFF;
+    border: 0.5px solid #666666;
   }
 </style>

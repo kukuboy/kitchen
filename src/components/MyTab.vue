@@ -25,11 +25,17 @@ export default {
     init () {
       let tab = this.$refs.tab
       let MyTab = this.$refs.MyTab
+      tab[0].className += ' active'
       for (let i of tab) {
         i.style.width = parseInt(MyTab.clientWidth / this.data.length) - 1 + 'px'
       }
     },
     clickP (index) {
+      let tab = this.$refs.tab
+      for (let i of tab) {
+        i.className = 'tab'
+      }
+      tab[index].className += ' active'
       this.$router.push({
         name: this.data[index].path
       })
@@ -56,5 +62,11 @@ export default {
     color: #333333;
     text-align: center;
     line-height: 3rem;
+    font-size: 1rem;
+    border: 0.5px solid #333333;
+  }
+
+  #MyTab .active {
+    color: red;
   }
 </style>
