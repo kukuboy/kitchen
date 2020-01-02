@@ -6,15 +6,32 @@
 
 <template>
   <div id="mine">
-    我的
+    <MyMood :mood="mood"></MyMood>
   </div>
 </template>
 
 <script>
+import MyMood from '../../components/MyMood'
+
 export default {
   name: 'mine',
+  components: {
+    MyMood
+  },
   data () {
-    return {}
+    return {
+      mood: [
+        {
+          value: '心情不好'
+        },
+        {
+          value: '心情还行'
+        },
+        {
+          value: '心情超好'
+        }
+      ]
+    }
   },
   mounted () {
   },
@@ -24,5 +41,12 @@ export default {
 
 <style scoped>
   #mine {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 3rem;
+    right: 0;
+    background-size: cover;
+    background-image: url("../../common/image/chl.jpg");
   }
 </style>
