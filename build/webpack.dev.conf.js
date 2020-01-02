@@ -29,6 +29,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       ],
     },
     hot: true,
+    disableHostCheck: true, // 跳过域名检查，后期可关闭
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
     host: HOST || config.dev.host,

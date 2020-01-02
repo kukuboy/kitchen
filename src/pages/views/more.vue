@@ -59,7 +59,15 @@ export default {
         name: this.name,
         img: this.img
       }).then((res) => {
-        alert(res.msg)
+        if (res.flag === 1) {
+          console.log('成功')
+        } else {
+          console.log('失败')
+        }
+        this.$Dialog.Dialog({
+          text: res.msg,
+          type: 'quit'
+        })
       })
     }
   }
