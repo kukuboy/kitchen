@@ -11,14 +11,14 @@ export default new Router({
       component: () => import('@/pages/home.vue'),
       children: [
         {
+          path: '/',
+          name: 'kitchen',
+          component: () => import('@/pages/views/kitchen.vue')
+        },
+        {
           path: '/more',
           name: 'more',
           component: () => import('@/pages/views/more.vue')
-        },
-        {
-          path: '/kitchen',
-          name: 'kitchen',
-          component: () => import('@/pages/views/kitchen.vue')
         },
         {
           path: '/mine',

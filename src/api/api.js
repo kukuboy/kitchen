@@ -42,7 +42,7 @@ export default {
       }
     )
   },
-  // 查询公告
+  // 添加食物
   addFood (params) {
     return httpA({
       url: '/addFood',
@@ -50,12 +50,20 @@ export default {
       method: 'POST'
     })
   },
-  // 查询置顶消息
+  // 获取食物
   getFood (params) {
     return httpA({
       url: '/getFood',
       params: params,
       method: 'GET'
+    })
+  },
+  // 发送邮件
+  Mail (params) {
+    return httpA({
+      url: '/Mail',
+      params: params,
+      method: 'POST'
     })
   }
 }

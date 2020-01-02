@@ -31,6 +31,8 @@ export default {
   methods: {
     clickP (item) {
       console.log('你点了' + item.name)
+      this.Mail('18860360510@163.com', item.name)
+      // this.Mail('1762721716@qq.com', item.name)
       // let mailOptions = {
       //   from: '"laogon"', // sender address
       //   to: '2294211995@qq.com', // list of receivers
@@ -40,6 +42,18 @@ export default {
       //   html: '<h1>' + item.name + 'Hello world</h1>' // html body
       // }
       // nodemailer.sentMail(mailOptions)
+    },
+    Mail (email, name) {
+      this.$http.Mail({
+        email: email,
+        text: name
+      }).then((res) => {
+        if (res.flag === 1) {
+          console.log('成功')
+        } else {
+          console.log('失败')
+        }
+      })
     }
   }
 }
