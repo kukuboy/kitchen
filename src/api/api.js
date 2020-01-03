@@ -65,5 +65,21 @@ export default {
       params: params,
       method: 'POST'
     })
+  },
+  // 添加心情
+  addMood (params) {
+    return httpA({
+      url: '/addMood',
+      params: params,
+      method: 'POST'
+    })
+  },
+  // 获取食物
+  getMood (params) {
+    return httpA({
+      url: '/getMood',
+      params: params,
+      method: 'GET'
+    })
   }
 }

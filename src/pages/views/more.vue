@@ -4,11 +4,6 @@
 * @Description:
 */
 
-<!--
- * @作者： 丁亚辉
- * @日期： 2019/11/21 19:56
--->
-
 <template>
   <div id="more">
     <img class="img" :src="imgSrc" @click="clickI">
@@ -17,23 +12,43 @@
     <input class="input" @focus="focus" placeholder="请输入食物名称" v-model="name">
     <p class="p" v-show="pShow">请输入食物名称</p>
     <button class="button" @click="addFood">添加食物</button>
+    <div class="view">
+      <MoodCard :data="item" v-for="(item, index) in mood_value" :key=index></MoodCard>
+    </div>
   </div>
 </template>
 
 <script>
+import MoodCard from '../../components/MoodCard'
+
 export default {
   name: 'more',
+  components: {
+    MoodCard
+  },
   data () {
     return {
       imgSrc: require('@/common/image/青椒鸡蛋.jpg'),
       name: '',
       img: '',
-      pShow: false
+      pShow: false,
+      mood_value: []
     }
   },
   mounted () {
+    this.query()
   },
   methods: {
+    query () {
+      this.getMood()
+    },
+    getMood () {
+      this.$http.getMood({}).then((res) => {
+        if (res.flag === 1) {
+          this.mood_value = res.data
+        }
+      })
+    },
     clickI () {
       let imgInput = this.$refs.imgInput
       imgInput.click()
@@ -88,9 +103,10 @@ export default {
     width: 23rem;
     height: 10rem;
   }
-  #more .input{
+
+  #more .input {
     width: 21rem;
-      margin: 1rem;
+    margin: 1rem;
     text-align: center;
     border-radius: 4px;
     height: 3rem;
@@ -98,7 +114,8 @@ export default {
     border: 0;
     outline: 0;
   }
-  #more .button{
+
+  #more .button {
     width: 21rem;
     margin-left: 1rem;
     text-align: center;
@@ -107,10 +124,20 @@ export default {
     height: 3rem;
     line-height: 3rem;
   }
-  #more .p{
+
+  #more .p {
     color: red;
     width: 23rem;
     text-align: center;
     margin: 0 auto;
+  }
+
+  #more .view {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    top: 20rem;
+    overflow-y: auto;
   }
 </style>

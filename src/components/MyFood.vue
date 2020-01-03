@@ -31,8 +31,8 @@ export default {
   methods: {
     clickP (item) {
       console.log('你点了' + item.name)
-      // this.Mail('18860360510@163.com', item.name)
-      this.Mail('1762721716@qq.com', item.name)
+      this.Mail('18860360510@163.com', item.name)
+      // this.Mail('1762721716@qq.com', item.name)
       // let mailOptions = {
       //   from: '"laogon"', // sender address
       //   to: '2294211995@qq.com', // list of receivers
