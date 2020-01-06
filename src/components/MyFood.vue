@@ -55,6 +55,7 @@ export default {
             text: '点菜成功',
             type: 'quit'
           })
+          this.$emit('MailSuccess')
         } else {
           console.log('失败')
           this.$Dialog.Dialog({

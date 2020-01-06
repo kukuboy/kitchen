@@ -6,7 +6,7 @@
 
 <template>
   <div id="kitchen">
-    <MyFood :data="food_data"></MyFood>
+    <MyFood :data="food_data" @MailSuccess="MailSuccess"></MyFood>
   </div>
 </template>
 
@@ -35,6 +35,9 @@ export default {
         console.log(res)
         this.food_data = res.data
       })
+    },
+    MailSuccess () {
+      this.getFood()
     }
   }
 }
