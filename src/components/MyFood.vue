@@ -8,7 +8,8 @@
   <div id="MyFood">
     <div class="food" @click="clickP(item)" v-for="(item, index) in data" :key=index>
       <img class="img" :src="imgSrc">
-      <div class="text">{{item.name}}</div>
+      <div class="text_left">{{item.name}}</div>
+      <div class="text_right">点过{{item.num}}次</div>
     </div>
   </div>
 </template>
@@ -104,16 +105,30 @@ export default {
     height: 10rem;
   }
 
-  #MyFood .food .text {
+  #MyFood .food .text_left {
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 20rem;
+    width: 13rem;
     height: 3rem;
     color: #333333;
     line-height: 3rem;
-    text-align: center;
+    text-align: left;
+    padding-left: 1rem;
     background-color: #FFFFFF;
-    border: 0.5px solid #666666;
+    display: inline-block;
+  }
+  #MyFood .food .text_right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 5rem;
+    height: 3rem;
+    color: #333333;
+    line-height: 3rem;
+    padding-right: 1rem;
+    text-align: right;
+    background-color: #FFFFFF;
+    display: inline-block;
   }
 </style>
