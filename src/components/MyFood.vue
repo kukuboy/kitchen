@@ -29,7 +29,7 @@ export default {
         if (i.img === '') {
           Array.push(require('@/common/image/青椒鸡蛋.jpg'))
         } else {
-          Array.push('http://localhost/serveltDemo_war_exploded/pic/' + i.img)
+          Array.push('http://182.92.207.81/serveltDemo_war_exploded/pic/' + i.img)
         }
       }
       return Array

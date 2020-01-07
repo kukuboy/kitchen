@@ -78,7 +78,7 @@ export default {
             text: '上传成功',
             type: 'quit'
           })
-          this.imgSrc = 'http://localhost/serveltDemo_war_exploded/pic/' + res.msg
+          this.imgSrc = 'http://182.92.207.81/serveltDemo_war_exploded/pic/' + res.msg
           console.log('成功')
         } else {
           this.$Dialog.Dialog({
