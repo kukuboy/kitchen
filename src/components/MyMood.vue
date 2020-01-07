@@ -10,10 +10,10 @@
       <div>我们已经相爱了</div>
       {{love_time}}
     </div>
+    <div class="value">{{value}}</div>
     <div class="star" ref="star">
       <div class="ball" ref="ball" @click="clickB(item,index)" v-for="(item, index) in mood" :key=index></div>
     </div>
-    <div class="value">{{value}}</div>
     <textarea class="text" placeholder="今天也写点什么吧" v-model="text_value"></textarea>
     <button @click="addMood" class="button">发布</button>
   </div>
@@ -98,19 +98,22 @@ export default {
 
 <style scoped>
   #MyMood {
-    position: relative;
-    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    background-color: rgba(81, 22, 32, 0.9);
+    top: 0;
+    bottom: 0;
   }
 
   #MyMood .loveTime {
-    width: 23rem;
-    margin: 1rem;
+    width: 21rem;
+    margin: 1rem 2rem;
     background-color: #FFFFFF;
     height: 4rem;
     line-height: 2rem;
     font-size: 1.2rem;
     font-weight: bold;
     border-radius: 4px;
+    -webkit-box-shadow: 1px 1px 1px 1px;
     box-shadow: 1px 1px 1px 1px;
     text-align: center;
     color: #FFFFFF;
@@ -128,7 +131,7 @@ export default {
     border-radius: 50%;
     display: inline-block;
     background-color: #FFFFFF;
-    margin: 1rem;
+    margin: 5rem 1rem;
   }
 
   #MyMood .value {
@@ -170,7 +173,6 @@ export default {
     text-align: center;
     border: 0;
     border-radius: 4px;
-    background-color: #000000;
     color: #FFFFFF;
     height: 2.5rem;
     line-height: 2.5rem;
