@@ -1,4 +1,5 @@
 import Axios from 'axios'
+// import qs from 'qs'
 
 const httpA = Axios.create()
 export default {
@@ -10,15 +11,15 @@ export default {
     httpA.defaults.baseURL = '/api/serveltDemo_war_exploded'
     httpA.defaults.headers.common['token'] = localStorage.invest_h5_token
     // 设置请求拦截器
-    httpA.interceptors.request.use(
-      config => {
-        config.headers.common['token'] = localStorage.invest_h5_token
-        return config
-      },
-      err => {
-        return Promise.reject(err)
-      }
-    )
+    // httpA.interceptors.request.use(
+    //   config => {
+    //     // config.headers.common['token'] = localStorage.invest_h5_token
+    //     return config
+    //   },
+    //   err => {
+    //     return Promise.reject(err)
+    //   }
+    // )
     // 设置响应拦截器
     httpA.interceptors.response.use(
       res => {
@@ -80,6 +81,17 @@ export default {
       url: '/getMood',
       params: params,
       method: 'GET'
+    })
+  },
+  // 获取食物
+  UploadImg (data) {
+    return httpA({
+      url: '/UploadImg',
+      data: data.data,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     })
   }
 }

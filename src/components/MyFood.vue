@@ -7,7 +7,7 @@
 <template>
   <div id="MyFood">
     <div class="food" @click="clickP(item)" v-for="(item, index) in data" :key=index>
-      <img class="img" :src="imgSrc">
+      <img class="img" :src="imgSrc[index]">
       <div class="text_left">{{item.name}}</div>
       <div class="text_right">点过{{item.num}}次</div>
     </div>
@@ -20,8 +20,19 @@
 export default {
   name: 'MyFood',
   data () {
-    return {
-      imgSrc: require('@/common/image/青椒鸡蛋.jpg')
+    return {}
+  },
+  computed: {
+    imgSrc () {
+      let Array = []
+      for (let i of this.data) {
+        if (i.img === '') {
+          Array.push(require('@/common/image/青椒鸡蛋.jpg'))
+        } else {
+          Array.push('http://localhost/serveltDemo_war_exploded/pic/' + i.img)
+        }
+      }
+      return Array
     }
   },
   props: {
@@ -82,6 +93,7 @@ export default {
     margin: 1rem 0;
     background-color: #111111;
   }
+
   /*#MyFood .food :hover{*/
   /*  position: relative;*/
   /*  width: 22rem;*/
@@ -119,6 +131,7 @@ export default {
     background-color: #FFFFFF;
     display: inline-block;
   }
+
   #MyFood .food .text_right {
     position: absolute;
     right: 0;

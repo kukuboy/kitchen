@@ -58,16 +58,48 @@ export default {
     },
     addImg () {
       let imgInput = this.$refs.imgInput
+      let data = new FormData()
+      data.append('file', imgInput.files[0])
+      this.UploadImg(data)
       let reader = new FileReader()
       reader.readAsDataURL(imgInput.files[0])
-      let _this = this
+      // let _this = this
       reader.onload = function (e) {
-        _this.img = this.result
+        // _this.img = this.result
       }
+    },
+    UploadImg (data) {
+      this.$http.UploadImg({
+        data
+      }).then((res) => {
+        if (res.flag === 1) {
+          this.img = res.msg
+          this.$Dialog.Dialog({
+            text: '上传成功',
+            type: 'quit'
+          })
+          this.imgSrc = 'http://localhost/serveltDemo_war_exploded/pic/' + res.msg
+          console.log('成功')
+        } else {
+          this.$Dialog.Dialog({
+            text: '上传失败，请重新上传',
+            type: 'quit'
+          })
+          console.log('失败')
+          this.img = ''
+        }
+      })
     },
     addFood () {
       if (this.name === '') {
         this.pShow = true
+        return
+      }
+      if (this.img === '') {
+        this.$Dialog.Dialog({
+          text: '请先上传图片',
+          type: 'quit'
+        })
         return
       }
       this.$http.addFood({
@@ -75,9 +107,7 @@ export default {
         img: this.img
       }).then((res) => {
         if (res.flag === 1) {
-          console.log('成功')
         } else {
-          console.log('失败')
         }
         this.$Dialog.Dialog({
           text: res.msg,
