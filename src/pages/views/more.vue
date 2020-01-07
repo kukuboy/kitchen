@@ -32,7 +32,9 @@ export default {
       name: '',
       img: '',
       pShow: false,
-      mood_value: []
+      mood_value: [],
+      page: 0,
+      size: 5
     }
   },
   mounted () {
@@ -43,7 +45,10 @@ export default {
       this.getMood()
     },
     getMood () {
-      this.$http.getMood({}).then((res) => {
+      this.$http.getMood({
+        page: this.page,
+        size: this.size
+      }).then((res) => {
         if (res.flag === 1) {
           this.mood_value = res.data
         }

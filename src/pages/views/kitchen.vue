@@ -20,7 +20,9 @@ export default {
   },
   data () {
     return {
-      food_data: []
+      food_data: [],
+      page: 0,
+      size: 5
     }
   },
   mounted () {
@@ -31,7 +33,10 @@ export default {
       this.getFood()
     },
     getFood () {
-      this.$http.getFood({}).then((res) => {
+      this.$http.getFood({
+        page: this.page,
+        size: this.size
+      }).then((res) => {
         console.log(res)
         this.food_data = res.data
       })
