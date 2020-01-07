@@ -20,7 +20,9 @@
 export default {
   name: 'MyFood',
   data () {
-    return {}
+    return {
+      click: false
+    }
   },
   computed: {
     imgSrc () {
@@ -56,10 +58,15 @@ export default {
       // nodemailer.sentMail(mailOptions)
     },
     Mail (email, name) {
+      if (this.click) {
+        return
+      }
+      this.click = true
       this.$http.Mail({
         email: email,
         text: name
       }).then((res) => {
+        this.click = false
         if (res.flag === 1) {
           console.log('成功')
           this.$Dialog.Dialog({
