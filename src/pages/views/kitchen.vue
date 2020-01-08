@@ -6,8 +6,16 @@
 
 <template>
   <div id="kitchen" ref="kitchen">
-    <MyFood :data="food_data" @MailSuccess="MailSuccess"></MyFood>
-    <div class="all" v-if="allShow">已加载全部</div>
+    <div class="left">
+      <div class="icon" ref="icon" :key=index v-for="(item,index) in classes" @click="clickC(index)">
+        <img :src=item.img>
+        <p>{{item.name}}</p>
+      </div>
+    </div>
+    <div class="right" ref="right">
+      <MyFood :data="food_data" @MailSuccess="MailSuccess"></MyFood>
+      <div class="all" v-if="allShow">已加载全部</div>
+    </div>
   </div>
 </template>
 
@@ -24,10 +32,30 @@ export default {
       food_data: [],
       page: 0,
       size: 5,
-      kitchen: '',
+      right: '',
       // 减少请求次数，提高性能
       pageSize: 0,
-      allShow: false
+      allShow: false,
+      classes: [
+        {
+          name: '全部',
+          img: require('@/common/image/菜单.png')
+        },
+        {
+          name: '素食',
+          img: require('@/common/image/素食.png')
+        }, {
+          name: '荤食',
+          img: require('@/common/image/肉食.png')
+        }, {
+          name: '汤类',
+          img: require('@/common/image/汤.png')
+        }, {
+          name: '其他',
+          img: require('@/common/image/食物.png')
+        }
+      ],
+      class: -1
     }
   },
   mounted () {
@@ -35,20 +63,19 @@ export default {
     this.query()
   },
   destroyed () {
-    this.kitchen.removeListener('scroll', this.scroll, false)
+    this.right.removeListener('scroll', this.scroll, false)
   },
   methods: {
     init () {
-      this.kitchen = this.$refs.kitchen
-      this.kitchen.addEventListener('scroll', this.scroll, false)
+      this.right = this.$refs.right
+      this.right.addEventListener('scroll', this.scroll, false)
+      this.clickC(0)
     },
     scroll () {
-      console.log(this.kitchen.scrollTop, this.kitchen.clientHeight)
       if (this.page === this.pageSize || this.allShow) {
         return
       }
-      console.log(this.kitchen.scrollTop, this.kitchen.clientHeight)
-      if (this.kitchen.scrollTop + this.kitchen.scrollHeight >= this.kitchen.clientHeight) {
+      if (this.right.scrollTop + this.right.scrollHeight >= this.right.clientHeight) {
         this.$Dialog.Rotate({
           ele: this.view
         })
@@ -57,13 +84,27 @@ export default {
       }
     },
     query () {
+      // this.getFood()
+    },
+    clickC (index) {
+      this.class = index
+      this.food_data = []
+      this.page = 0
+      this.size = 5
       this.getFood()
+      for (let i of this.$refs.icon) {
+        i.style.color = '#333333'
+        i.style.border = '0'
+      }
+      this.$refs.icon[index].style.color = 'red'
+      this.$refs.icon[index].style.border = '0.5px solid red'
     },
     getFood () {
       this.pageSize = this.page
       this.$http.getFood({
         page: this.page,
-        size: this.size
+        size: this.size,
+        class: this.class - 1
       }).then((res) => {
         this.pageSize -= 1
         this.$Dialog.Rotate({
@@ -84,7 +125,8 @@ export default {
     refresh () {
       this.$http.getFood({
         page: 0,
-        size: this.size + this.page
+        size: this.size + this.page,
+        class: this.class - 1
       }).then((res) => {
         if (res.data.length < 5) {
           this.allShow = true
@@ -102,13 +144,52 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 3rem;
+    right: 0;
+    bottom: 4rem;
+  }
+
+  #kitchen .left {
+    width: 5rem;
+    display: inline-block;
+    height: 100%;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    box-shadow: 2px 2px 2px 2px #aa8a8a;
+  }
+
+  #kitchen .left .icon {
+    width: 4rem;
+    margin: 2rem 0.4rem;
+    text-align: center;
+    box-shadow: 2px 2px 2px 2px #aa8a8a;
+  }
+
+  #kitchen .left .icon img {
+    width: 2rem;
+  }
+
+  #kitchen .left .icon p {
+    margin: 0 auto;
+  }
+
+  #kitchen .right {
+    width: 18rem;
+    display: inline-block;
+    height: 100%;
+    position: absolute;
+    left: 6rem;
+    top: 0;
+    bottom: 0;
     overflow-y: auto;
   }
 
-  #kitchen .all {
+  #kitchen .right::-webkit-scrollbar {
+    display: none;
+  }
+  #kitchen .right .all {
     text-align: center;
-    width: 23rem;
+    width: 16rem;
     padding: 1rem;
   }
 </style>

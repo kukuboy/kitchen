@@ -6,10 +6,10 @@
 
 <template>
   <div id="MyFood">
-    <div class="food" @click="clickP(item, index)" v-for="(item, index) in data" :key=index>
-      <img class="img" :src="imgSrc[index]">
-      <div class="text_left">{{item.name}}</div>
-      <div class="text_right">点过{{item.num}}次</div>
+    <div class="food" v-for="(item, index) in data" :key=index>
+      <img class="img" :src="imgSrc[index]" @click="clickI(imgSrc[index])">
+      <div class="text" style="bottom: 3rem"><img class="img" :src="classes[item.classNum].img">{{item.name}}</div>
+      <div class="text"><img @click="clickP(item, index)" class="img" src="../common/image/邮件.png">{{item.num}}</div>
     </div>
   </div>
 </template>
@@ -21,7 +21,22 @@ export default {
   name: 'MyFood',
   data () {
     return {
-      click: false
+      click: false,
+      classes: [
+        {
+          name: '素食',
+          img: require('@/common/image/素食.png')
+        }, {
+          name: '荤食',
+          img: require('@/common/image/肉食.png')
+        }, {
+          name: '汤类',
+          img: require('@/common/image/汤.png')
+        }, {
+          name: '其他',
+          img: require('@/common/image/食物.png')
+        }
+      ]
     }
   },
   computed: {
@@ -46,7 +61,7 @@ export default {
     clickP (item, index) {
       console.log('你点了' + item.name + this.imgSrc[index])
       // this.Mail('18860360510@163.com', item.name, this.imgSrc[index])
-      this.Mail('1762721716@qq.com', item.name, this.imgSrc[index])
+      // this.Mail('1762721716@qq.com', item.name, this.imgSrc[index])
       // let mailOptions = {
       //   from: '"laogon"', // sender address
       //   to: '2294211995@qq.com', // list of receivers
@@ -56,6 +71,14 @@ export default {
       //   html: '<h1>' + item.name + 'Hello world</h1>' // html body
       // }
       // nodemailer.sentMail(mailOptions)
+    },
+    clickI (img) {
+      this.$router.push({
+        name: 'img',
+        params: {
+          img: img
+        }
+      })
     },
     Mail (email, name, img) {
       if (this.click) {
@@ -91,15 +114,15 @@ export default {
 <style scoped>
   #MyFood {
     position: relative;
-    padding: 0 2.5rem;
   }
 
   #MyFood .food {
     position: relative;
-    width: 20rem;
-    height: 13rem;
+    width: 18rem;
+    height: 16rem;
     margin: 1rem 0;
     background-color: #111111;
+    box-shadow: 4px 4px 4px 4px #e1b6b6;
   }
 
   /*#MyFood .food :hover{*/
@@ -122,35 +145,35 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    width: 20rem;
+    width: 18rem;
     height: 10rem;
   }
 
-  #MyFood .food .text_left {
+  #MyFood .food .text {
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 13rem;
+    width: 16rem;
     height: 3rem;
-    color: #333333;
     line-height: 3rem;
-    text-align: left;
-    padding-left: 1rem;
+    padding: 0 1rem;
     background-color: #FFFFFF;
     display: inline-block;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333333;
+    text-align: right;
   }
 
-  #MyFood .food .text_right {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 5rem;
-    height: 3rem;
-    color: #333333;
-    line-height: 3rem;
-    padding-right: 1rem;
-    text-align: right;
-    background-color: #FFFFFF;
-    display: inline-block;
+  #MyFood .food .text .img {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0.25rem;
+  }
+
+  #MyFood .food .text .img:active {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.5rem;
   }
 </style>

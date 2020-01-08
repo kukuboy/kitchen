@@ -26,6 +26,11 @@ export default new Router({
           component: () => import('@/pages/views/mine.vue')
         }
       ]
+    },
+    {
+      path: '/img',
+      name: 'img',
+      component: () => import('@/pages/img.vue')
     }
   ]
 })

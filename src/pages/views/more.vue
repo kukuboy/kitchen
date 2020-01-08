@@ -5,7 +5,14 @@
 */
 
 <template>
-  <div id="more">
+  <div id="more" ref="more">
+    <div class="classes">
+      <p class="p" v-show="pShowTwo">请选择食物种类</p>
+      <div class="icon" ref="icon" :key=index v-for="(item,index) in classes" @click="clickC(item,index)">
+        <img :src=item.img>
+        <p>{{item.name}}</p>
+      </div>
+    </div>
     <img class="img" :src="imgSrc" @click="clickI">
     <input style="display: none" ref="imgInput" @change="addImg" type="file" accept="image/*" id="upload"
            name="upload">
@@ -13,6 +20,7 @@
     <p class="p" v-show="pShow">请输入食物名称</p>
     <button class="button" @click="addFood">添加食物</button>
     <div class="view" ref="view">
+      <div class="title" @click="clickT">心情模块</div>
       <MoodCard :data="item" v-for="(item, index) in mood_value" :key=index></MoodCard>
       <div class="all" v-if="allShow">已加载全部</div>
     </div>
@@ -39,7 +47,24 @@ export default {
       view: '',
       // 减少请求次数，提高性能
       pageSize: 0,
-      allShow: false
+      allShow: false,
+      pShowTwo: false,
+      classes: [
+        {
+          name: '素食',
+          img: require('@/common/image/素食.png')
+        }, {
+          name: '荤食',
+          img: require('@/common/image/肉食.png')
+        }, {
+          name: '汤类',
+          img: require('@/common/image/汤.png')
+        }, {
+          name: '其他',
+          img: require('@/common/image/食物.png')
+        }
+      ],
+      class: -1
     }
   },
   mounted () {
@@ -65,6 +90,20 @@ export default {
         this.page += this.size
         this.getFood()
       }
+    },
+    clickT () {
+      let more = this.$refs.more
+      more.scrollTop = more.clientHeight
+    },
+    clickC (item, index) {
+      this.pShowTwo = false
+      this.class = index
+      for (let i of this.$refs.icon) {
+        i.style.color = '#333333'
+        i.style.border = '0'
+      }
+      this.$refs.icon[index].style.color = 'red'
+      this.$refs.icon[index].style.border = '0.5px solid red'
     },
     query () {
       this.getMood()
@@ -130,20 +169,25 @@ export default {
       })
     },
     addFood () {
-      if (this.name === '') {
-        this.pShow = true
+      if (this.class < 0) {
+        this.pShowTwo = true
         return
       }
       if (this.img === '') {
         this.$Dialog.Dialog({
-          text: '请先上传图片',
+          text: '请先上传图片完成',
           type: 'quit'
         })
         return
       }
+      if (this.name === '') {
+        this.pShow = true
+        return
+      }
       this.$http.addFood({
         name: this.name,
-        img: this.img
+        img: this.img,
+        class: this.class
       }).then((res) => {
         if (res.flag === 1) {
         } else {
@@ -163,9 +207,29 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 3rem;
+    bottom: 4rem;
     right: 0;
-    padding: 1rem
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  #more .classes {
+
+  }
+
+  #more .classes .icon {
+    width: 4rem;
+    margin: 1rem 0.7rem;
+    display: inline-block;
+    text-align: center;
+  }
+
+  #more .classes .icon img {
+    width: 2rem;
+  }
+
+  #more .classes .icon p {
+    margin: 0 auto;
   }
 
   #more .img {
@@ -192,6 +256,8 @@ export default {
     background-color: red;
     height: 3rem;
     line-height: 3rem;
+    color: #FFFFFF;
+    font-size: 1.1rem;
   }
 
   #more .p {
@@ -203,11 +269,31 @@ export default {
 
   #more .view {
     position: absolute;
-    bottom: 0;
+    height: 100%;
     left: 0;
     width: 100%;
-    top: 20rem;
+    top: 26rem;
     overflow-y: auto;
+  }
+
+  #more .view .title {
+    text-align: center;
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: red;
+    text-shadow: 5px 5px 5px #cbafaf;
+  }
+
+  #more .view .title:active {
+    text-align: center;
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: red;
+    text-shadow: 1px 1px 1px #cbafaf;
   }
 
   #more .view .all {

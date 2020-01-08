@@ -6,7 +6,10 @@
 
 <template>
   <div id="MyTab" ref="MyTab">
-    <div class="tab" ref="tab" v-for="(item, index) in data" :key="index" @click="clickP(index)">{{item.name}}</div>
+    <div class="tab" ref="tab" v-for="(item, index) in data" :key="index" @click="clickP(index)">
+      <img class="img" :src="item.img">
+      <p class="p">{{item.name}}</p>
+    </div>
   </div>
 </template>
 
@@ -47,22 +50,32 @@ export default {
 <style>
   #MyTab {
     position: fixed;
-    height: 3rem;
+    height: 4rem;
     color: #FFFFFF;
     left: 0;
+    background-color: #FFFFFF;
     bottom: 0;
     left: 0;
     width: 100%;
   }
 
   #MyTab .tab {
-    height: 3rem;
+    height: 4rem;
     display: inline-block;
     color: #333333;
     text-align: center;
-    line-height: 3rem;
+    /*line-height: 3rem;*/
     font-size: 1rem;
     border: 0.5px solid #333333;
+  }
+
+  #MyTab .tab .img {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  #MyTab .tab .p {
+    margin: 0 auto;
   }
 
   #MyTab .active {

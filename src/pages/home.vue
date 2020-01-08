@@ -24,13 +24,16 @@ export default {
       tab_data: [
         {
           name: '菜单',
-          path: 'kitchen'
+          path: 'kitchen',
+          img: require('@/common/image/菜单.png')
         }, {
           name: '发现',
-          path: 'more'
+          path: 'more',
+          img: require('@/common/image/心.png')
         }, {
           name: '我的',
-          path: 'mine'
+          path: 'mine',
+          img: require('@/common/image/我的.png')
         }
       ]
     }
