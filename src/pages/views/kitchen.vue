@@ -77,7 +77,7 @@ export default {
       }
       if (this.right.scrollTop + this.right.scrollHeight >= this.right.clientHeight) {
         this.$Dialog.Rotate({
-          ele: this.view
+          ele: this.right
         })
         this.page += this.size
         this.getFood()
@@ -108,7 +108,7 @@ export default {
       }).then((res) => {
         this.pageSize -= 1
         this.$Dialog.Rotate({
-          ele: this.view,
+          ele: this.right,
           state: 'end'
         })
         if (res.data.length < 5) {
