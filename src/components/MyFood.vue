@@ -61,7 +61,7 @@ export default {
     clickP (item, index) {
       console.log('你点了' + item.name + this.imgSrc[index])
       // this.Mail('18860360510@163.com', item.name, this.imgSrc[index])
-      // this.Mail('1762721716@qq.com', item.name, this.imgSrc[index])
+      this.Mail('1762721716@qq.com', item.name, this.imgSrc[index])
       // let mailOptions = {
       //   from: '"laogon"', // sender address
       //   to: '2294211995@qq.com', // list of receivers
