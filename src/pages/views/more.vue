@@ -38,7 +38,7 @@ export default {
       size: 5,
       view: '',
       // 减少请求次数，提高性能
-      pageSize: -1,
+      pageSize: 0,
       allShow: false
     }
   },
@@ -55,14 +55,14 @@ export default {
       this.view.addEventListener('scroll', this.scroll(), false)
     },
     scroll () {
-      if (this.page !== this.pageSize || this.allShow) {
+      if (this.page === this.pageSize || this.allShow) {
         return
       }
-      if (this.view.scrollTop >= this.view.clientHeight) {
+      if (this.view.scrollTop + this.kitchen.scrollHeight >= this.view.clientHeight) {
         this.$Dialog.Rotate({
           ele: this.view
         })
-        this.page += 1
+        this.page += this.size
         this.getFood()
       }
     },
@@ -70,9 +70,7 @@ export default {
       this.getMood()
     },
     getMood () {
-      if (this.page === this.pageSize) {
-        return
-      }
+      this.pageSize = this.page
       this.$http.getMood({
         page: this.page,
         size: this.size
@@ -82,7 +80,7 @@ export default {
           state: 'end'
         })
         if (res.flag === 1) {
-          this.pageSize = this.page
+          this.pageSize -= 1
           if (res.data.length < 5) {
             this.allShow = true
           }

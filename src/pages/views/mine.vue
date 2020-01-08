@@ -48,5 +48,6 @@ export default {
     right: 0;
     background-size: cover;
     background-image: url("../../common/image/chl.jpg");
+    overflow-y: auto;
   }
 </style>

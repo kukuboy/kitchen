@@ -6,7 +6,7 @@
 
 <template>
   <div id="MyFood">
-    <div class="food" @click="clickP(item)" v-for="(item, index) in data" :key=index>
+    <div class="food" @click="clickP(item, index)" v-for="(item, index) in data" :key=index>
       <img class="img" :src="imgSrc[index]">
       <div class="text_left">{{item.name}}</div>
       <div class="text_right">点过{{item.num}}次</div>
@@ -43,10 +43,10 @@ export default {
   mounted () {
   },
   methods: {
-    clickP (item) {
-      console.log('你点了' + item.name)
-      // this.Mail('18860360510@163.com', item.name)
-      this.Mail('1762721716@qq.com', item.name)
+    clickP (item, index) {
+      console.log('你点了' + item.name + this.imgSrc[index])
+      // this.Mail('18860360510@163.com', item.name, this.imgSrc[index])
+      this.Mail('1762721716@qq.com', item.name, this.imgSrc[index])
       // let mailOptions = {
       //   from: '"laogon"', // sender address
       //   to: '2294211995@qq.com', // list of receivers
@@ -57,14 +57,15 @@ export default {
       // }
       // nodemailer.sentMail(mailOptions)
     },
-    Mail (email, name) {
+    Mail (email, name, img) {
       if (this.click) {
         return
       }
       this.click = true
       this.$http.Mail({
         email: email,
-        text: name
+        text: name,
+        img: img
       }).then((res) => {
         this.click = false
         if (res.flag === 1) {

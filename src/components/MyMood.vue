@@ -101,7 +101,7 @@ export default {
     position: absolute;
     background-color: rgba(81, 22, 32, 0.9);
     top: 0;
-    bottom: 0;
+    padding-bottom: 8rem;
   }
 
   #MyMood .loveTime {

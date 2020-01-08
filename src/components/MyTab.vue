@@ -27,7 +27,7 @@ export default {
       let MyTab = this.$refs.MyTab
       tab[0].className += ' active'
       for (let i of tab) {
-        i.style.width = parseInt(MyTab.clientWidth / this.data.length) - 1.5 + 'px'
+        i.style.width = parseInt(MyTab.clientWidth / this.data.length) - 2 + 'px'
       }
     },
     clickP (index) {

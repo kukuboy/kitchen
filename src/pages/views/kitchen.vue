@@ -26,7 +26,7 @@ export default {
       size: 5,
       kitchen: '',
       // 减少请求次数，提高性能
-      pageSize: -1,
+      pageSize: 0,
       allShow: false
     }
   },
@@ -35,22 +35,24 @@ export default {
     this.query()
   },
   destroyed () {
-    this.kitchen.removeListener('scroll', this.scroll(), false)
+    this.kitchen.removeListener('scroll', this.scroll, false)
   },
   methods: {
     init () {
       this.kitchen = this.$refs.kitchen
-      this.kitchen.addEventListener('scroll', this.scroll(), false)
+      this.kitchen.addEventListener('scroll', this.scroll, false)
     },
     scroll () {
-      if (this.page !== this.pageSize || this.allShow) {
+      console.log(this.kitchen.scrollTop, this.kitchen.clientHeight)
+      if (this.page === this.pageSize || this.allShow) {
         return
       }
-      if (this.kitchen.scrollTop >= this.kitchen.clientHeight) {
+      console.log(this.kitchen.scrollTop, this.kitchen.clientHeight)
+      if (this.kitchen.scrollTop + this.kitchen.scrollHeight >= this.kitchen.clientHeight) {
         this.$Dialog.Rotate({
           ele: this.view
         })
-        this.page += 1
+        this.page += this.size
         this.getFood()
       }
     },
@@ -58,18 +60,16 @@ export default {
       this.getFood()
     },
     getFood () {
-      if (this.page === this.pageSize) {
-        return
-      }
+      this.pageSize = this.page
       this.$http.getFood({
         page: this.page,
         size: this.size
       }).then((res) => {
+        this.pageSize -= 1
         this.$Dialog.Rotate({
           ele: this.view,
           state: 'end'
         })
-        this.pageSize = this.page
         if (res.data.length < 5) {
           this.allShow = true
         }
@@ -78,7 +78,20 @@ export default {
       })
     },
     MailSuccess () {
-      this.getFood()
+      this.pageSize -= 1
+      this.refresh()
+    },
+    refresh () {
+      this.$http.getFood({
+        page: 0,
+        size: this.size + this.page
+      }).then((res) => {
+        if (res.data.length < 5) {
+          this.allShow = true
+        }
+        console.log(res)
+        this.food_data = res.data
+      })
     }
   }
 }
