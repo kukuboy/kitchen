@@ -12,8 +12,9 @@
     <input class="input" @focus="focus" placeholder="请输入食物名称" v-model="name">
     <p class="p" v-show="pShow">请输入食物名称</p>
     <button class="button" @click="addFood">添加食物</button>
-    <div class="view">
+    <div class="view" ref="view">
       <MoodCard :data="item" v-for="(item, index) in mood_value" :key=index></MoodCard>
+      <div class="all" v-if="allShow">已加载全部</div>
     </div>
   </div>
 </template>
@@ -34,23 +35,58 @@ export default {
       pShow: false,
       mood_value: [],
       page: 0,
-      size: 5
+      size: 5,
+      view: '',
+      // 减少请求次数，提高性能
+      pageSize: -1,
+      allShow: false
     }
   },
   mounted () {
+    this.init()
     this.query()
   },
+  destroyed () {
+    this.view.removeListener('scroll', this.scroll(), false)
+  },
   methods: {
+    init () {
+      this.view = this.$refs.view
+      this.view.addEventListener('scroll', this.scroll(), false)
+    },
+    scroll () {
+      if (this.page !== this.pageSize || this.allShow) {
+        return
+      }
+      if (this.view.scrollTop >= this.view.clientHeight) {
+        this.$Dialog.Rotate({
+          ele: this.view
+        })
+        this.page += 1
+        this.getFood()
+      }
+    },
     query () {
       this.getMood()
     },
     getMood () {
+      if (this.page === this.pageSize) {
+        return
+      }
       this.$http.getMood({
         page: this.page,
         size: this.size
       }).then((res) => {
+        this.$Dialog.Rotate({
+          ele: this.view,
+          state: 'end'
+        })
         if (res.flag === 1) {
-          this.mood_value = res.data
+          this.pageSize = this.page
+          if (res.data.length < 5) {
+            this.allShow = true
+          }
+          this.mood_value = this.mood_value.concat(res.data)
         }
       })
     },
@@ -174,5 +210,11 @@ export default {
     width: 100%;
     top: 20rem;
     overflow-y: auto;
+  }
+
+  #more .view .all {
+    text-align: center;
+    width: 23rem;
+    padding: 1rem;
   }
 </style>
