@@ -14,6 +14,7 @@
     <div class="star" ref="star">
       <div class="ball" ref="ball" @click="clickB(item,index)" v-for="(item, index) in mood" :key=index></div>
     </div>
+    <div class="warn" v-if="warn">随便写点什么吧</div>
     <textarea class="text" placeholder="今天也写点什么吧" v-model="text_value"></textarea>
     <button @click="addMood" class="button">发布</button>
   </div>
@@ -31,9 +32,21 @@ export default {
     return {
       value: '猜我今天的心情怎么样',
       text_value: '',
-      index: 0,
+      index: -1,
       date: '',
-      time: ''
+      time: '',
+      warn: false
+    }
+  },
+  watch: {
+    text_value: {
+      handler (newVal, oldVal) {
+        if (newVal === '') {
+          this.warn = true
+        } else {
+          this.warn = false
+        }
+      }
     }
   },
   computed: {
@@ -74,6 +87,14 @@ export default {
       this.value = item.value
     },
     addMood () {
+      if (this.index < 0) {
+        this.value = '请先点击下方心情指数'
+        return
+      }
+      if (this.text_value === '') {
+        this.warn = true
+        return
+      }
       this.$http.addMood({
         star: this.index,
         value: this.value,
@@ -144,6 +165,12 @@ export default {
     line-height: 3rem;
     font-size: 1.1rem;
     text-shadow: 2px 2px 2px red;
+  }
+
+  #MyMood .warn {
+    width: 25rem;
+    text-align: center;
+    color: red;
   }
 
   #MyMood .text {
