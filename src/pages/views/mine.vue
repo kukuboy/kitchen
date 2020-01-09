@@ -46,8 +46,9 @@ export default {
     left: 0;
     bottom: 3rem;
     right: 0;
-    background-size: cover;
-    background-image: url("../../common/image/chl.jpg");
+    /*background-size: cover;*/
+    /*background-image: url("../../common/image/chl.jpg");*/
+    background-color: #F6F7F8;
     overflow-y: auto;
   }
 </style>

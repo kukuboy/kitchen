@@ -125,22 +125,6 @@ export default {
     box-shadow: 4px 4px 4px 4px #e1b6b6;
   }
 
-  /*#MyFood .food :hover{*/
-  /*  position: relative;*/
-  /*  width: 22rem;*/
-  /*  height: 5rem;*/
-  /*  margin: 1rem 0;*/
-  /*  animation: img 3s linear 0s infinite normal;*/
-  /*}*/
-  /*@keyframes img {*/
-  /*  0%{background-image: url("../common/image/chl.jpg")}*/
-  /*  20%{background-image: url("../common/image/你和我.jpg")}*/
-  /*  40%{background-image: url("../common/image/chl.jpg")}*/
-  /*  60%{background-color: #333333}*/
-  /*  80%{background-color: #444444}*/
-  /*  100%{background-color: #555555}*/
-  /*}*/
-
   #MyFood .food .img {
     position: absolute;
     left: 0;
