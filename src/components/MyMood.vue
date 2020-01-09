@@ -10,7 +10,10 @@
       <div>我们已经相爱了</div>
       {{love_time}}
     </div>
-    <div class="value">{{value}}</div>
+    <div class="value">{{value}}<img class="cdImg" ref="cdImg" @click="play" src="../common/image/光盘.png"></div>
+    <audio ref="audio" id="audio" class="audio" autoplay="autoplay" controls="controls">
+      <source src="../common/music/咱们结婚吧.mp3" type="audio/mp3" />
+    </audio>
     <div class="star" ref="star">
       <div class="ball" ref="ball" @click="clickB(item,i)" v-for="(item, i) in mood" :key=i>
         <img v-if="index>=i" class="img" src="../common/image/蓝心.png">
@@ -78,6 +81,16 @@ export default {
       // }
       // star.style.marginLeft = (25 - ((l + 2) * this.mood.length)) / 2 + 'rem'
     },
+    play () {
+      let audio = this.$refs.audio
+      if (audio.style.display === 'block') {
+        audio.style.display = 'none'
+        // audio.play()
+      } else {
+        audio.style.display = 'block'
+        // audio.pause()
+      }
+    },
     clickB (item, index) {
       this.index = index
       let ball = this.$refs.ball
@@ -143,7 +156,13 @@ export default {
     box-shadow: 8px 8px 8px 8px #8ec3bd;
     text-align: center;
     /*color: #FFFFFF;*/
-    text-shadow: 10px 10px 10px red;
+    text-shadow: 8px 8px 4px red;
+  }
+
+  #MyMood .audio {
+    width: 20rem;
+    margin: 1rem 2.5rem;
+    display: none;
   }
 
   #MyMood .star {
@@ -170,9 +189,6 @@ export default {
     width: 25rem;
     text-align: center;
     height: 3rem;
-    /*border: 0.5px solid #999999;*/
-    /*border-left: 0;*/
-    /*border-right: 0;*/
     border-right: 4px;
     background-color: #FFFFFF;
     line-height: 3rem;
@@ -181,6 +197,13 @@ export default {
     font-size: 1.2rem;
     text-shadow: 2px 2px 2px red;
     margin: 2rem 0;
+  }
+
+  #MyMood .value .cdImg {
+    width: 3rem;
+    position: absolute;
+    right: 3rem;
+    animation: rotate 3s linear 0s infinite normal
   }
 
   #MyMood .warn {
@@ -223,8 +246,29 @@ export default {
     height: 4rem;
     color: #8ec3bd;
     font-size: 1.5rem;
-    text-shadow: 15px 15px 15px red;
+    text-shadow: 10px 10px 5px red;
     font-weight: bolder;
     line-height: 4rem;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(72deg);
+    }
+    20% {
+      transform: rotate(108deg)
+    }
+    40% {
+      transform: rotate(144deg)
+    }
+    60% {
+      transform: rotate(180deg)
+    }
+    80% {
+      transform: rotate(216deg)
+    }
+    100% {
+      transform: rotate(252deg)
+    }
   }
 </style>
