@@ -76,10 +76,10 @@ export default {
         return
       }
       if (this.right.scrollTop + this.right.scrollHeight >= this.right.clientHeight) {
+        this.pageQuery = true
         this.$Dialog.Rotate({
           ele: this.right
         })
-        this.pageQuery = true
         this.page += 1
         this.getFood()
       }
@@ -90,7 +90,7 @@ export default {
     clickC (index) {
       this.class = index
       this.food_data = []
-      this.page = 0
+      this.page = 1
       this.size = 5
       this.getFood()
       for (let i of this.$refs.icon) {
@@ -104,8 +104,9 @@ export default {
       this.$http.getFood({
         page: this.page,
         size: this.size,
-        class: this.class - 1
+        class: this.class
       }).then((res) => {
+        this.pageQuery = false
         this.$Dialog.Rotate({
           ele: this.right,
           state: 'end'
