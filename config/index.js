@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/kkapi': {
-        target: 'http://localhost',
+        target: 'http://dingyahui.top:8989',
         changeOrigin: true,
         pathRewrite: {
           '^/kkapi': ''

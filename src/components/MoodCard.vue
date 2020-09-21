@@ -6,6 +6,7 @@
 
 <template>
   <div id="MoodCard">
+    <img class="imgShow" :src="'http://dingyahui.top:8989/serveltDemo/pic/'+data.img" />
     <div class="time">
       <div>相爱时间</div>
       {{time}}
@@ -47,21 +48,20 @@ export default {
     min-height: 20rem;
     width: 23rem;
     margin: 1rem;
-    background-color: #FFFFFF;
     border: 0.5px solid;
     box-shadow: 1px 1px 1px 1px;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   #MoodCard .time {
     width: 21rem;
     margin: 1rem;
-    background-color: #FFFFFF;
     height: 4rem;
     line-height: 2rem;
     font-size: 1.2rem;
     font-weight: bold;
     border-radius: 4px;
-    box-shadow: 1px 1px 1px 1px;
+    box-shadow: 3px 3px 10px 3px pink;
     text-align: center;
     color: #FFFFFF;
     text-shadow: 2px 2px 2px red;
@@ -72,11 +72,13 @@ export default {
     margin: 1rem;
     padding: 1rem;
     border-bottom: 0.5px solid #333333;
-    background-image: url("../common/image/你和我.jpg");
     background-size: cover;
     min-height: 7rem;
-    color: #FFFFFF;
-    font-size: 1.1rem;
+    font-weight: 600;
+    max-width: 15rem;
+    overflow-y: auto;
+    color: pink;
+    font-size: 1.4rem;
   }
 
   #MoodCard .mood {
@@ -88,5 +90,12 @@ export default {
     font-size: 1.1rem;
     font-weight: bolder;
     text-align: center;
+    color: red;
+  }
+  #MoodCard .imgShow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
   }
 </style>
