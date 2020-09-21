@@ -30,11 +30,11 @@ export default {
   data () {
     return {
       food_data: [],
-      page: 0,
+      page: 1,
       size: 5,
       right: '',
       // 减少请求次数，提高性能
-      pageSize: 0,
+      pageQuery: false,
       allShow: false,
       classes: [
         {
@@ -72,14 +72,15 @@ export default {
       this.clickC(0)
     },
     scroll () {
-      if (this.page === this.pageSize || this.allShow) {
+      if (this.pageQuery || this.allShow) {
         return
       }
       if (this.right.scrollTop + this.right.scrollHeight >= this.right.clientHeight) {
         this.$Dialog.Rotate({
           ele: this.right
         })
-        this.page += this.size
+        this.pageQuery = true
+        this.page += 1
         this.getFood()
       }
     },
@@ -100,40 +101,24 @@ export default {
       this.$refs.icon[index].style.border = '0.5px solid red'
     },
     getFood () {
-      this.pageSize = this.page
       this.$http.getFood({
         page: this.page,
         size: this.size,
         class: this.class - 1
       }).then((res) => {
-        this.pageSize -= 1
         this.$Dialog.Rotate({
           ele: this.right,
           state: 'end'
         })
-        if (res.data.length < 5) {
+        if (res.data.length < this.size) {
           this.allShow = true
         }
         console.log(res)
         this.food_data = this.food_data.concat(res.data)
       })
     },
-    MailSuccess () {
-      this.pageSize -= 1
-      this.refresh()
-    },
-    refresh () {
-      this.$http.getFood({
-        page: 0,
-        size: this.size + this.page,
-        class: this.class - 1
-      }).then((res) => {
-        if (res.data.length < 5) {
-          this.allShow = true
-        }
-        console.log(res)
-        this.food_data = res.data
-      })
+    MailSuccess (index) {
+      this.food_data[index].num++
     }
   }
 }
