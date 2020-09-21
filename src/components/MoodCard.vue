@@ -6,7 +6,7 @@
 
 <template>
   <div id="MoodCard">
-    <img class="imgShow" :src="'http://dingyahui.top:8989/serveltDemo/pic/'+data.img" />
+    <img class="imgShow" ref="imgShow" @error="checkImg" :src="'http://dingyahui.top:8989/serveltDemo/pic/'+data.img" />
     <div class="time">
       <div>相爱时间</div>
       {{time}}
@@ -38,7 +38,11 @@ export default {
   },
   mounted () {
   },
-  methods: {}
+  methods: {
+    checkImg () {
+      this.$refs.imgShow.src = require('../common/image/你和我.jpg')
+    }
+  }
 }
 </script>
 
