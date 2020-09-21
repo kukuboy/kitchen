@@ -8,7 +8,7 @@ export default {
       value: this, // 设置值
       writable: false // 是否可以改变，默认false，更改会报undefined
     })
-    httpA.defaults.baseURL = '/serveltDemo'
+    httpA.defaults.baseURL = '/kkapi/serveltDemo'
     httpA.defaults.headers.common['token'] = localStorage.invest_h5_token
     // 设置请求拦截器
     // httpA.interceptors.request.use(

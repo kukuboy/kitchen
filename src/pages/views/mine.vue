@@ -44,7 +44,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    bottom: 3rem;
+    bottom: 4rem;
     right: 0;
     /*background-size: cover;*/
     /*background-image: url("../../common/image/chl.jpg");*/

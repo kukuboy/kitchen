@@ -20,6 +20,9 @@
         <img v-else class="img" src="../common/image/爱心.png">
       </div>
     </div>
+     <img class="imgUpload" :src="'http://dingyahui.top:8989/serveltDemo/pic/'+img" @click="clickI">
+    <input style="display: none" ref="imgInput" @change="addImg" type="file" accept="image/*" id="upload"
+           name="upload">
     <div class="warn" v-if="warn">随便写点什么吧</div>
     <textarea class="text" placeholder="今天也写点什么吧" v-model="text_value"></textarea>
     <button @click="addMood" class="button">发布</button>
@@ -41,7 +44,8 @@ export default {
       index: -1,
       date: '',
       time: '',
-      warn: false
+      warn: false,
+      img: 'c569f46e-3a6f-4ef9-ae29-3ecbf55c32b8t1600653197396'
     }
   },
   watch: {
@@ -115,7 +119,7 @@ export default {
         star: this.index,
         value: this.value,
         text: this.text_value,
-        img: '1111',
+        img: this.img,
         time: new Date().getTime()
       }).then((res) => {
         if (res.flag === 1) {
@@ -127,6 +131,42 @@ export default {
           text: res.msg,
           type: 'quit'
         })
+      })
+    },
+    clickI () {
+      let imgInput = this.$refs.imgInput
+      imgInput.click()
+    },
+    addImg () {
+      let imgInput = this.$refs.imgInput
+      let data = new FormData()
+      data.append('file', imgInput.files[0])
+      this.UploadImg(data)
+      let reader = new FileReader()
+      reader.readAsDataURL(imgInput.files[0])
+      // let _this = this
+      reader.onload = function (e) {
+        // _this.img = this.result
+      }
+    },
+    UploadImg (data) {
+      this.$http.UploadImg({
+        data
+      }).then((res) => {
+        if (res.flag === 1) {
+          this.img = res.msg
+          this.$Dialog.Dialog({
+            text: '上传成功',
+            type: 'quit'
+          })
+          console.log('成功')
+        } else {
+          this.$Dialog.Dialog({
+            text: '上传失败，请重新上传',
+            type: 'quit'
+          })
+          console.log('失败')
+        }
       })
     }
   }
@@ -270,5 +310,10 @@ export default {
     100% {
       transform: rotate(252deg)
     }
+  }
+   #MyMood .imgUpload {
+    width: 23rem;
+    height: 10rem;
+    margin: 2rem 1rem 0;
   }
 </style>

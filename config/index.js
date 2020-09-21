@@ -9,13 +9,13 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: './',
+    assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
+      '/kkapi': {
         target: 'http://localhost',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/kkapi': ''
         }
       },
     },
