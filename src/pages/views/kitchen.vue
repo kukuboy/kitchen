@@ -21,7 +21,7 @@
 
 <script>
 import MyFood from '../../components/MyFood'
-
+let right
 export default {
   name: 'kitchen',
   components: {
@@ -32,7 +32,6 @@ export default {
       food_data: [],
       page: 1,
       size: 5,
-      right: '',
       // 减少请求次数，提高性能
       pageQuery: false,
       allShow: false,
@@ -63,22 +62,22 @@ export default {
     this.query()
   },
   destroyed () {
-    this.right.removeListener('scroll', this.scroll, false)
+    right.removeListener('scroll', this.scroll, false)
   },
   methods: {
     init () {
-      this.right = this.$refs.right
-      this.right.addEventListener('scroll', this.scroll, false)
+      right = this.$refs.right
+      right.addEventListener('scroll', this.scroll, false)
       this.clickC(0)
     },
     scroll () {
       if (this.pageQuery || this.allShow) {
         return
       }
-      if (this.right.scrollTop + this.right.scrollHeight >= this.right.clientHeight) {
+      if (right.scrollTop + right.scrollHeight >= right.clientHeight) {
         this.pageQuery = true
         this.$Dialog.Rotate({
-          ele: this.right
+          ele: right
         })
         this.page += 1
         this.getFood()
@@ -108,7 +107,7 @@ export default {
       }).then((res) => {
         this.pageQuery = false
         this.$Dialog.Rotate({
-          ele: this.right,
+          ele: right,
           state: 'end'
         })
         if (res.data.length < this.size) {
