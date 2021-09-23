@@ -30,6 +30,8 @@
 <script>
 import MoodCard from '../../components/MoodCard'
 
+let view
+
 export default {
   name: 'more',
   components: {
@@ -44,7 +46,6 @@ export default {
       mood_value: [],
       page: 0,
       size: 5,
-      view: '',
       // 减少请求次数，提高性能
       pageSize: 0,
       allShow: false,
@@ -72,20 +73,20 @@ export default {
     this.query()
   },
   destroyed () {
-    this.view.removeListener('scroll', this.scroll(), false)
+    view.removeListener('scroll', this.scroll(), false)
   },
   methods: {
     init () {
-      this.view = this.$refs.view
-      this.view.addEventListener('scroll', this.scroll(), false)
+      view = this.$refs.view
+      view.addEventListener('scroll', this.scroll(), false)
     },
     scroll () {
       if (this.page === this.pageSize || this.allShow) {
         return
       }
-      if (this.view.scrollTop + this.kitchen.scrollHeight >= this.view.clientHeight) {
+      if (view.scrollTop + this.kitchen.scrollHeight >= view.clientHeight) {
         this.$Dialog.Rotate({
-          ele: this.view
+          ele: view
         })
         this.page += this.size
         this.getFood()
@@ -115,7 +116,7 @@ export default {
         size: this.size
       }).then((res) => {
         this.$Dialog.Rotate({
-          ele: this.view,
+          ele: view,
           state: 'end'
         })
         if (res.flag === 1) {
