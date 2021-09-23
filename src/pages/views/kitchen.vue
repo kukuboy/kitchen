@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       food_data: [],
-      page: 1,
+      page: 0,
       size: 5,
       right: '',
       // 减少请求次数，提高性能
@@ -80,7 +80,7 @@ export default {
         this.$Dialog.Rotate({
           ele: this.right
         })
-        this.page += 1
+        this.page += this.size
         this.getFood()
       }
     },
@@ -88,9 +88,9 @@ export default {
       // this.getFood()
     },
     clickC (index) {
-      this.class = index
+      this.class = index - 1
       this.food_data = []
-      this.page = 1
+      this.page = 0
       this.size = 5
       this.getFood()
       for (let i of this.$refs.icon) {

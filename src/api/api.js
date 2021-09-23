@@ -34,7 +34,7 @@ export default {
           localStorage.invest_h5_token = ''
           window.ws.close()
         } else {
-          return Promise.reject(data.msg)
+          return data
         }
       },
       error => {
